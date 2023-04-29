@@ -43,7 +43,9 @@ public class SecurityConfig {
                 .authorizeRequests()
                 .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
                 .antMatchers("/auth/**").permitAll()
+                .antMatchers("/member/**").authenticated()
                 .antMatchers("/post/**").authenticated()
+                .antMatchers("/purchase/**").authenticated()
                 .anyRequest().authenticated();
         http
                 .sessionManagement()
