@@ -13,9 +13,7 @@ import com.example.ampersand.global.security.jwt.TokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import javax.transaction.Transactional;
-import java.util.Optional;
+import org.springframework.transaction.annotation.Transactional;
 
 
 @Service
@@ -28,14 +26,14 @@ public class SignInServiceImpl implements SignInService {
     private final RefreshTokenRepository refreshTokenRepository;
 
 
-    @Transactional(rollbackOn = Exception.class)
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public TokenResponse execute(SignInRequest signInRequest) {
 
         Member member = memberRepository.findById(signInRequest.getId())
                 .orElseThrow(()->new MemberNotFoundException("존재하지 않는 멤버입니다"));
 
-        if (!passwordEncoder.matches(signInRequest.getPassword(), member.getPassword())){
+        if (!passwordEncoder.matches(signInRequest.getPassword(), member.getPassword())) {
             throw new MisMatchPasswordException("비밀번호가 일치하지 않습니다.");
         }
 
