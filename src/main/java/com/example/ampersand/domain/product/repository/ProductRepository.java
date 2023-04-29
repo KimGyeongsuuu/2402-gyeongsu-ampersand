@@ -9,4 +9,5 @@ import java.util.Optional;
 
 public interface ProductRepository extends JpaRepository<Product, Long> {
     List<Product> findByMember(Member member);
+    Boolean existsByName(String name);
 }
