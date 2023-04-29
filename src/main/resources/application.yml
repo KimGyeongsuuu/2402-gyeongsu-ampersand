@@ -18,6 +18,9 @@ spring:
         max-file-size: 100MB
         max-request-size: 100MB
     open-in-view: false
+  redis:
+    host: ${REDIS_HOST}
+    port: ${REDIS_PORT}
 
 jwt:
   accessSecret: ${ACCESS_SECRET}

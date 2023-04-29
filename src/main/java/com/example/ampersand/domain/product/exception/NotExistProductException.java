@@ -3,7 +3,6 @@ package com.example.ampersand.domain.product.exception;
 
 import com.example.ampersand.global.exception.ErrorCode;
 import lombok.Getter;
-import org.aspectj.weaver.ast.Not;
 
 @Getter
 public class NotExistProductException extends RuntimeException{
