@@ -37,19 +37,19 @@ public class TokenProvider {
 
     @AllArgsConstructor
     private enum TokenClaimName {
-        USER_EMAIL("email"),
+        USER_ID("id"),
         TOKEN_TYPE("tokenType");
         String value;
     }
 
     private Key getSignInKey(String secretKey) {
-        byte[] bytes =secretKey.getBytes(StandardCharsets.UTF_8);
+        byte[] bytes = secretKey.getBytes(StandardCharsets.UTF_8);
         return Keys.hmacShaKeyFor(bytes);
     }
 
-    private String generateToken(String userEmail, TokenType tokenType, String secret, long expireTime) {
+    private String generateToken(String id, TokenType tokenType, String secret, long expireTime) {
         final Claims claims = Jwts.claims();
-        claims.put(TokenClaimName.USER_EMAIL.value, userEmail);
+        claims.put(TokenClaimName.USER_ID.value, id);
         claims.put(TokenClaimName.TOKEN_TYPE.value, tokenType);
         return Jwts.builder()
                 .setClaims(claims)
@@ -78,24 +78,24 @@ public class TokenProvider {
         return ZonedDateTime.now().plusSeconds(ACCESS_TOKEN_EXPIRE_TIME);
     }
 
-    public String getUserEmail(String token, String secret) {
-        return extractAllClaims(token, secret).get(TokenClaimName.USER_EMAIL.value, String.class);
+    public String getUserId(String token, String secret) {
+        return extractAllClaims(token, secret).get(TokenClaimName.USER_ID.value, String.class);
     }
 
     public String getTokenType(String token, String secret) {
         return extractAllClaims(token, secret).get(TokenClaimName.TOKEN_TYPE.value, String.class);
     }
 
-    public String generatedAccessToken(String email) {
-        return generateToken(email, TokenType.ACCESS_TOKEN, jwtProperties.getAccessSecret(), ACCESS_TOKEN_EXPIRE_TIME);
+    public String generatedAccessToken(String id) {
+        return generateToken(id, TokenType.ACCESS_TOKEN, jwtProperties.getAccessSecret(), ACCESS_TOKEN_EXPIRE_TIME);
     }
 
-    public String generatedRefreshToken(String email) {
-        return generateToken(email, TokenType.REFRESH_TOKEN, jwtProperties.getRefreshSecret(), REFRESH_TOKEN_EXPIRE_TIME);
+    public String generatedRefreshToken(String id) {
+        return generateToken(id, TokenType.REFRESH_TOKEN, jwtProperties.getRefreshSecret(), REFRESH_TOKEN_EXPIRE_TIME);
     }
 
-    public UsernamePasswordAuthenticationToken authenticationToken(String email) {
-        UserDetails userDetails = memberDetailsService.loadUserByUsername(email);
+    public UsernamePasswordAuthenticationToken authenticationToken(String id) {
+        UserDetails userDetails = memberDetailsService.loadUserByUsername(id);
         return new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
     }
 }

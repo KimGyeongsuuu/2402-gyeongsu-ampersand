@@ -13,7 +13,9 @@ public enum ErrorCode {
     TOKEN_EXPIRATION("토큰이 만료 되었습니다.", 401),
 
     // AUTH
-    DUPLICATE_ID_EXCEPTION("이미 존재하는 id 입니다.",400);
+    DUPLICATE_ID_EXCEPTION("이미 존재하는 id 입니다.",400),
+    MEMBER_NOT_FOUND("존재하지 않는 멤버입니다.",404),
+    MISMATCH_PASSWORD("비밀번호가 일치하지 않습니다.",400);
 
     private final String message;
 

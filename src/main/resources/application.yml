@@ -7,7 +7,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     database-platform: org.hibernate.dialect.MySQL8Dialect
     properties:
       hibernate:
@@ -19,6 +19,6 @@ spring:
         max-request-size: 100MB
     open-in-view: false
 
-  jwt:
-    accessSecret: ${ACCESS_SECRET}
-    refreshSecret: ${REFRESH_SECRET}
+jwt:
+  accessSecret: ${ACCESS_SECRET}
+  refreshSecret: ${REFRESH_SECRET}
