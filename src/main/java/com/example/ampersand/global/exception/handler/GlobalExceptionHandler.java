@@ -1,6 +1,8 @@
 package com.example.ampersand.global.exception.handler;
 
 import com.example.ampersand.domain.auth.exception.DuplicateIdException;
+import com.example.ampersand.domain.auth.exception.MemberNotFoundException;
+import com.example.ampersand.domain.auth.exception.MisMatchPasswordException;
 import com.example.ampersand.global.exception.ErrorMessage;
 import com.example.ampersand.global.security.exception.TokenExpirationException;
 import com.example.ampersand.global.security.exception.TokenNotValidException;
@@ -32,6 +34,20 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(TokenNotValidException.class)
     public ResponseEntity<ErrorMessage> handleTokenNotValidException(HttpServletRequest request, TokenExpirationException exception) {
+        printError(request, exception, exception.getErrorCode().getMessage());
+        ErrorMessage errorMessage = new ErrorMessage(exception.getErrorCode().getMessage(), exception.getErrorCode().getStatus());
+        return new ResponseEntity<>(errorMessage, HttpStatus.valueOf(exception.getErrorCode().getStatus()));
+    }
+
+    @ExceptionHandler(MemberNotFoundException.class)
+    public ResponseEntity<ErrorMessage> handleMemberNotFoundException(HttpServletRequest request, MemberNotFoundException exception) {
+        printError(request, exception, exception.getErrorCode().getMessage());
+        ErrorMessage errorMessage = new ErrorMessage(exception.getErrorCode().getMessage(), exception.getErrorCode().getStatus());
+        return new ResponseEntity<>(errorMessage, HttpStatus.valueOf(exception.getErrorCode().getStatus()));
+    }
+
+    @ExceptionHandler(MisMatchPasswordException.class)
+    public ResponseEntity<ErrorMessage> handleMisMatchPasswordException(HttpServletRequest request, MisMatchPasswordException exception) {
         printError(request, exception, exception.getErrorCode().getMessage());
         ErrorMessage errorMessage = new ErrorMessage(exception.getErrorCode().getMessage(), exception.getErrorCode().getStatus());
         return new ResponseEntity<>(errorMessage, HttpStatus.valueOf(exception.getErrorCode().getStatus()));

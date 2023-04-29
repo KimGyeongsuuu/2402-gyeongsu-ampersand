@@ -9,7 +9,7 @@ import javax.validation.constraints.NotBlank;
 
 @Getter
 @AllArgsConstructor
-public class SignupRequest {
+public class SignUpRequest {
 
     @NotBlank
     private String id;
