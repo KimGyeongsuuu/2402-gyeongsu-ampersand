@@ -13,9 +13,7 @@ import com.example.ampersand.global.security.jwt.TokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import javax.transaction.Transactional;
-import java.util.Optional;
+import org.springframework.transaction.annotation.Transactional;
 
 
 @Service
@@ -28,7 +26,7 @@ public class SignInServiceImpl implements SignInService {
     private final RefreshTokenRepository refreshTokenRepository;
 
 
-    @Transactional(rollbackOn = Exception.class)
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public TokenResponse execute(SignInRequest signInRequest) {
 
