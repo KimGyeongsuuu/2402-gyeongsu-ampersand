@@ -22,7 +22,7 @@ public class GetRegisterProductServiceImpl implements GetRegisterProductService 
     private final ProductRepository productRepository;
     private final MemberUtil memberUtil;
 
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional(rollbackFor = Exception.class, readOnly = true)
     @Override
     public List<GetProductResponse> execute() {
         Member member = memberUtil.currentMember();
