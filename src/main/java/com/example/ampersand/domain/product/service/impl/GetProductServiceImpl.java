@@ -2,6 +2,7 @@ package com.example.ampersand.domain.product.service.impl;
 
 import com.example.ampersand.domain.member.presentation.dto.response.GetMemberResponse;
 import com.example.ampersand.domain.product.entity.Product;
+import com.example.ampersand.domain.product.presentation.dto.response.GetDetailProductResponse;
 import com.example.ampersand.domain.product.presentation.dto.response.GetProductResponse;
 import com.example.ampersand.domain.product.repository.ProductRepository;
 import com.example.ampersand.domain.product.service.GetProductService;
@@ -28,9 +29,7 @@ public class GetProductServiceImpl implements GetProductService {
                 .map(product -> GetProductResponse.builder()
                         .productId(product.getId())
                         .name(product.getName())
-                        .content(product.getContent())
                         .price(product.getPrice())
-                        .member(GetMemberResponse.convertToMember(product.getMember()))
                         .build())
                 .collect(Collectors.toList());
 

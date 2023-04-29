@@ -10,12 +10,15 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class GetProductResponse {
+public class GetDetailProductResponse {
 
     private Long productId;
 
     private String name;
 
+    private String content;
+
     private Long price;
 
+    private GetMemberResponse member;
 }

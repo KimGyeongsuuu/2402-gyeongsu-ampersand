@@ -33,7 +33,7 @@ public class SignInServiceImpl implements SignInService {
         Member member = memberRepository.findById(signInRequest.getId())
                 .orElseThrow(()->new MemberNotFoundException("존재하지 않는 멤버입니다"));
 
-        if (!passwordEncoder.matches(signInRequest.getPassword(), member.getPassword())){
+        if (!passwordEncoder.matches(signInRequest.getPassword(), member.getPassword())) {
             throw new MisMatchPasswordException("비밀번호가 일치하지 않습니다.");
         }
 

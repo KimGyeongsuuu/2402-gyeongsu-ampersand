@@ -23,7 +23,7 @@ public class SignupServiceImpl implements SignUpService {
     @Override
     public void execute(SignUpRequest signUpRequest) {
 
-        if (memberRepository.existsById(signUpRequest.getId())){
+        if (memberRepository.existsById(signUpRequest.getId())) {
             throw new DuplicateIdException("이미 존재하는 id 입니다.");
         }
 
@@ -31,6 +31,7 @@ public class SignupServiceImpl implements SignUpService {
                 .id(signUpRequest.getId())
                 .password(passwordEncoder.encode(signUpRequest.getPassword()))
                 .build();
+
         memberRepository.save(member);
 
     }
