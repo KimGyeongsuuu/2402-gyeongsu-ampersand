@@ -10,6 +10,6 @@ public class DuplicateIdException extends RuntimeException{
 
     public DuplicateIdException(String message) {
         super(message);
-        this.errorCode = ErrorCode.DUPLICATE_ID_EXCEPTION;
+        this.errorCode = ErrorCode.DUPLICATE_ID;
     }
 }
