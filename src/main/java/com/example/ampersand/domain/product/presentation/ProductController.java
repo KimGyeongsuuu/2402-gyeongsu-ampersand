@@ -4,6 +4,7 @@ package com.example.ampersand.domain.product.presentation;
 import com.example.ampersand.domain.product.presentation.dto.request.RegisterProductRequest;
 import com.example.ampersand.domain.product.presentation.dto.response.GetDetailProductResponse;
 import com.example.ampersand.domain.product.presentation.dto.response.GetProductResponse;
+import com.example.ampersand.domain.product.service.DeleteProductService;
 import com.example.ampersand.domain.product.service.GetDetailProductService;
 import com.example.ampersand.domain.product.service.GetProductService;
 import com.example.ampersand.domain.product.service.RegisterProductService;
@@ -23,6 +24,7 @@ public class ProductController {
     private final RegisterProductService registerProductService;
     private final GetProductService getProductService;
     private final GetDetailProductService getDetailProductService;
+    private final DeleteProductService deleteProductService;
 
     @PostMapping("/register")
     public ResponseEntity<Void> registerProduct(@RequestBody @Valid RegisterProductRequest registerProductRequest){
@@ -40,6 +42,12 @@ public class ProductController {
     public ResponseEntity<GetDetailProductResponse> viewDetailProduct(@PathVariable Long product_id){
         GetDetailProductResponse product = getDetailProductService.execute(product_id);
         return ResponseEntity.ok(product);
+    }
+
+    @DeleteMapping("/{product_id}")
+    public ResponseEntity<Void> deleteProduct(@PathVariable Long product_id){
+        deleteProductService.execute(product_id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
 }
