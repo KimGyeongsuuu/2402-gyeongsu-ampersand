@@ -4,6 +4,7 @@ import com.example.ampersand.domain.auth.exception.DuplicateIdException;
 import com.example.ampersand.domain.auth.exception.MemberNotFoundException;
 import com.example.ampersand.domain.auth.exception.MisMatchPasswordException;
 import com.example.ampersand.domain.member.exception.NotVerifyMember;
+import com.example.ampersand.domain.product.exception.NotExistProductException;
 import com.example.ampersand.global.exception.ErrorMessage;
 import com.example.ampersand.global.security.exception.TokenExpirationException;
 import com.example.ampersand.global.security.exception.TokenNotValidException;
@@ -56,6 +57,13 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(NotVerifyMember.class)
     public ResponseEntity<ErrorMessage> handleNotVerifyMember(HttpServletRequest request, NotVerifyMember exception) {
+        printError(request, exception, exception.getErrorCode().getMessage());
+        ErrorMessage errorMessage = new ErrorMessage(exception.getErrorCode().getMessage(), exception.getErrorCode().getStatus());
+        return new ResponseEntity<>(errorMessage, HttpStatus.valueOf(exception.getErrorCode().getStatus()));
+    }
+
+    @ExceptionHandler(NotExistProductException.class)
+    public ResponseEntity<ErrorMessage> handleNotExistProductException(HttpServletRequest request, NotExistProductException exception) {
         printError(request, exception, exception.getErrorCode().getMessage());
         ErrorMessage errorMessage = new ErrorMessage(exception.getErrorCode().getMessage(), exception.getErrorCode().getStatus());
         return new ResponseEntity<>(errorMessage, HttpStatus.valueOf(exception.getErrorCode().getStatus()));
