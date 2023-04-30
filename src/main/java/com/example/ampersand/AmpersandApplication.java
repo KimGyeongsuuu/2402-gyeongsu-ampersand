@@ -7,7 +7,6 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.cache.annotation.EnableCaching;
 
 @SpringBootApplication
-@EnableCaching
 @EnableConfigurationProperties
 @ConfigurationPropertiesScan
 public class AmpersandApplication {
